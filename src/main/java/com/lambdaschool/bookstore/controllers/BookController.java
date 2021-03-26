@@ -30,13 +30,11 @@ public class BookController
     BookService bookService;
 
     // http://localhost:2019/books/books
-    @GetMapping(value = "/books",
-            produces = {"application/json"})
+    @GetMapping(value = "/books", produces = {"application/json"})
     public ResponseEntity<?> listAllBooks(HttpServletRequest request)
     {
         List<Book> myBooks = bookService.findAll();
-        return new ResponseEntity<>(myBooks,
-                                    HttpStatus.OK);
+        return new ResponseEntity<>(myBooks, HttpStatus.OK);
     }
 
     // http://localhost:2019/books/book/{bookId}
