@@ -9,7 +9,6 @@ import com.lambdaschool.bookstore.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
@@ -59,7 +58,7 @@ public class BookServiceImpl
             bookrepos.deleteById(id);
         } else
         {
-            throw new EntityNotFoundException("Book with id " + id + " Not Found!");
+            throw new ResourceNotFoundException("Book with id " + id + " Not Found!");
         }
     }
 
@@ -72,7 +71,7 @@ public class BookServiceImpl
         if (book.getBookid() != 0)
         {
             bookrepos.findById(book.getBookid())
-                    .orElseThrow(() -> new EntityNotFoundException("Book id " + book.getBookid() + " not found!"));
+                    .orElseThrow(() -> new ResourceNotFoundException("Book id " + book.getBookid() + " not found!"));
         }
 
         newBook.setTitle(book.getTitle());
@@ -90,7 +89,7 @@ public class BookServiceImpl
         {
             Author addAuthor = authorrepos.findById(w.getAuthor()
                                                             .getAuthorid())
-                    .orElseThrow(() -> new EntityNotFoundException("Author Id " + w.getAuthor()
+                    .orElseThrow(() -> new ResourceNotFoundException("Author Id " + w.getAuthor()
                             .getAuthorid() + " Not Found!"));
             newBook.getWrotes()
                     .add(new Wrote(addAuthor, newBook));
@@ -135,7 +134,7 @@ public class BookServiceImpl
             {
                 Author addAuthor = authorrepos.findById(w.getAuthor()
                                                                 .getAuthorid())
-                        .orElseThrow(() -> new EntityNotFoundException("Author Id " + w.getAuthor()
+                        .orElseThrow(() -> new ResourceNotFoundException("Author Id " + w.getAuthor()
                                 .getAuthorid() + " Not Found!"));
                 currentBook.getWrotes()
                         .add(new Wrote(addAuthor, currentBook));
