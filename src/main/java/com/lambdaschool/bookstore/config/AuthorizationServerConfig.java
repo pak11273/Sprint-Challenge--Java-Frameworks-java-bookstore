@@ -1,6 +1,7 @@
 package com.lambdaschool.bookstore.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,18 +17,19 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
  */
 @Configuration
 @EnableAuthorizationServer
-public class AuthorizationServerConfig
-        extends AuthorizationServerConfigurerAdapter
+public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter
 {
     /**
      * Client Id is the user name for the client application. It is read from the environment variable OAUTHCLIENTID
      */
-    static final String CLIENT_ID = System.getenv("OAUTHCLIENTID");
+    @Value("${OAUTHCLIENTID:}")
+    private String CLIENT_ID;
 
     /**
      * Client secret is the password for the client application. It is read from the environment variable OAUTHCLIENTSECRET
      */
-    static final String CLIENT_SECRET = System.getenv("OAUTHCLIENTSECRET"); // read from environment variable
+    @Value("${OAUTHCLIENTSECRET:}")
+    private String CLIENT_SECRET;
 
     /**
      * We are using username and password to authenticate a user
